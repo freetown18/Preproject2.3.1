@@ -17,19 +17,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String showAll(Model model){
         model.addAttribute("allUsers", userService.getAll());
         return "all-users";
     }
 
-    @RequestMapping("/addUser")
+    @GetMapping("/addUser")
     public String showAddNewForm(Model model){
         model.addAttribute("new_user", new User());
         return "user-info";
     }
 
-    @RequestMapping("/saveUser")
+    @PostMapping("/saveUser")
     public String saveNew(@ModelAttribute("new_user") User user, BindingResult result){
         if (result.hasErrors()) {
             return "user-info";
