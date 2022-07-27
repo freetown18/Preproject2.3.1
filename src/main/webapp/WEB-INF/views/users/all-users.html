@@ -5,10 +5,11 @@
     <title>All users</title>
 </head>
 <body>
+<h2>Users</h2>
+<p><a href="/users/new">Add a new user</a></p>
 <div th:switch="${allUsers}">
-    <h2 th:case="null">Please add users</h2>
+    <h2 th:case="null">Currently there are no users</h2>
     <div th:case="*">
-        <h2>Users</h2>
         <table>
             <thead>
             <tr>
@@ -24,13 +25,20 @@
                 <td th:text="${user.age}"></td>
                 <td th:text="${user.job}"></td>
                 <td th:text="${user.city}"></td>
-                <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
-                <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+                <td>
+                    <form th:action="@{users/{id}/edit(id=${user.id})}">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{users/{id}/delete(id=${user.id})}" th:method="DELETE">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/addUser">Add a new user</a></p>
 </div>
 </body>
 </html>

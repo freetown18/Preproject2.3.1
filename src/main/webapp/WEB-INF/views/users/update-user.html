@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Add a new user</title>
+    <title>Edit user information</title>
 </head>
 <body>
-<form action="#" th:action="@{/saveUser}" th:object="${new_user}" method="post">
+<form action="#"
+      th:action="@{/users/{id}/update(id=${user.getId()})}" th:object="${user}" th:method="PATCH">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name">
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
@@ -22,7 +23,7 @@
     <input type="text" th:field="*{city}" id="city">
     <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
 
-    <input type="submit" value="Add User">
+    <input type="submit" value="Update User">
 </form>
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -17,47 +18,47 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public String showAll(Model model){
         model.addAttribute("allUsers", userService.getAll());
-        return "all-users";
+        return "users/all-users";
     }
 
-    @GetMapping("/addUser")
+    @GetMapping("/new")
     public String showAddNewForm(Model model){
         model.addAttribute("new_user", new User());
-        return "user-info";
+        return "users/user-info";
     }
 
     @PostMapping("/saveUser")
     public String saveNew(@ModelAttribute("new_user") User user, BindingResult result){
         if (result.hasErrors()) {
-            return "user-info";
+            return "users/user-info";
         }
         userService.saveNew(user);
-        return "redirect:/";
+        return "redirect:/users";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/{id}/edit")
     public String showUpdateForm(@PathVariable("id") int id, Model model) {
         User user = userService.getById(id);
         model.addAttribute("user", user);
-        return "update-user";
+        return "users/update-user";
     }
 
-    @PostMapping("/update/{id}")
-    public String update(@PathVariable("id") byte id, User user, BindingResult result) {
+    @PatchMapping("/{id}/update")
+    public String update(@PathVariable("id") int id, User user, BindingResult result) {
         if (result.hasErrors()) {
             user.setId(id);
-            return "update-user";
+            return "users/update-user";
         }
         userService.update(user);
-        return "redirect:/";
+        return "redirect:/users";
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:/";
+        return "redirect:/users";
     }
 }
