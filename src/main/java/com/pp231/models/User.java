@@ -1,6 +1,9 @@
 package com.pp231.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "users")
@@ -11,9 +14,12 @@ public class User {
     private int id;
 
     @Column(name = "name", length = 45)
+    @NotEmpty(message = "Name should not be empty")
     private String name;
 
     @Column(name = "age")
+    @Min(value = 1, message = "too yong")
+    @Max(value = 100, message = "too old")
     private Byte age;
 
     @Column(name = "job", length = 35)

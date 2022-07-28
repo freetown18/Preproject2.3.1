@@ -9,11 +9,11 @@
       th:action="@{/users/{id}/update(id=${user.getId()})}" th:object="${user}" th:method="PATCH">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name">
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <span style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
     <br><br>
     <label for="age">Age</label>
-    <input type="text" th:field="*{age}" id="age">
-    <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+    <input type="number" th:field="*{age}" id="age">
+    <span style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
     <br><br>
     <label for="job">Job</label>
     <input type="text" th:field="*{job}" id="job">

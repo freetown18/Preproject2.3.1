@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -31,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
-    public String saveNew(@ModelAttribute("new_user") User user, BindingResult result){
+    public String saveNew(@ModelAttribute("new_user") @Valid User user, BindingResult result){
         if (result.hasErrors()) {
             return "users/user-info";
         }
@@ -47,7 +49,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/update")
-    public String update(@PathVariable("id") int id, User user, BindingResult result) {
+    public String update(@PathVariable("id") int id, @Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             user.setId(id);
             return "users/update-user";
